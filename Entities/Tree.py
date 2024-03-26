@@ -1,4 +1,10 @@
-from .Entity import Entity
+from Entities.Entity import Entity
 
 class Tree(Entity): # Дерево
-    pass
+
+    def __init__(self,  coordinate, name):
+        image = '🌲'
+        super().__init__(coordinate, name, image)
+
+
+
