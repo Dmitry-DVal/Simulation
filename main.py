@@ -6,6 +6,7 @@ from Actions import Map, Actions
 
 
 class Simulation():  # Главный класс. Включает Счётчик ходов Рендерер поля Action
+    "Главный класс приложения"
     def __init__(self, Map):
         self.Map = Map  # получение начальной карты
         self.count_move = 0  # счетчик ходов
