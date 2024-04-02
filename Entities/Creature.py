@@ -1,4 +1,4 @@
-from .Entity import Entity
+from Entities.Entity import Entity
 
 class Creature(Entity): # Существо. Класс для всех живых. Здоровье. Скорость.
     "Класс для живых существ"

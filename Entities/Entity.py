@@ -1,6 +1,6 @@
 class Entity(): # Сущность. Класс для всех существ и объектов. У всех есть координаты и картинки
     "Класс для всех существ и объектов, существующих в симуляции"
-    def __init__(self, coordinate, name, image):
+    def __init__(self, coordinate, name, image=None):
         self.coordinate = coordinate
         self.name = name
         self.image = image
