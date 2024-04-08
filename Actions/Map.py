@@ -6,6 +6,9 @@ from Entities.Rock import Rock
 # Скорее всего я сделаю Map, где ключ будет коллецией ( координаты х, у), а значение - экземпляр класса Entity(), либо None
 class Map:
     "Класс карты симуляции"
+
+    def __str__(self):
+        return 'The object Map'
     def __init__(self, height, width):
         self.height = height
         self.width = width
