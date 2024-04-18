@@ -6,5 +6,5 @@ class Grass(Entity): # Трава
     def __str__(self):
         return 'The object Grass'
     def __init__(self, coordinate, name):
-        image = '🌿'
-        super().__init__(coordinate, name, image)
+        super().__init__(coordinate, name)
+        self.image = '🌿'

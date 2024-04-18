@@ -1,4 +1,3 @@
-from config import height, width
 from Entities.Entity import Entity
 from Entities.Grass import Grass
 from Entities.Rock import Rock
@@ -24,16 +23,4 @@ class Map:
                 elif isinstance(self.map[(x, y)], Entity):
                     print(self.map[(x, y)].image, end="  ")  # Клетка с травой
             print()  # Переход на новую строку
-
-# m = Map(height, width)
-# m.show_map()
-# print(len(m.map))
-# print(m.map)
-# print()
-#
-# m.map[1,2] = Grass([1,2], 'mamr')
-# m.map[2,3] = Rock([1,2], 'mamr')
-#
-# m.show_map()
-# print(m.map)
 
