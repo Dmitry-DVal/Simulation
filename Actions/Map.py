@@ -1,6 +1,4 @@
-from Entities.Entity import Entity
-from Entities.Grass import Grass
-from Entities.Rock import Rock
+from Entities.entity import Entity
 
 # Скорее всего я сделаю Map, где ключ будет коллецией ( координаты х, у), а значение - экземпляр класса Entity(), либо None
 class Map:

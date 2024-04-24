@@ -1,4 +1,4 @@
-from Entities.Entity import Entity
+from Entities.entity import Entity
 
 
 class Rock(Entity): # Камень
@@ -7,8 +7,8 @@ class Rock(Entity): # Камень
     def __str__(self):
         return 'The object Rock'
 
-    def __init__(self,  coordinate, name ):
-        super().__init__(coordinate, name)
+    def __init__(self ):
+        # super().__init__(coordinate, name)
         self.image = '🪨'
 
 
