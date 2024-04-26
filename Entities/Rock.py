@@ -7,8 +7,8 @@ class Rock(Entity): # Камень
     def __str__(self):
         return 'The object Rock'
 
-    def __init__(self ):
-        # super().__init__(coordinate, name)
+    def __init__(self, coordinate):
+        super().__init__(coordinate)
         self.image = '🪨'
 
 

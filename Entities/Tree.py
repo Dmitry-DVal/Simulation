@@ -5,9 +5,9 @@ class Tree(Entity): # Дерево
 
     def __str__(self):
         return 'The object Tree'
-    def __init__(self):
+    def __init__(self, coordinate):
+        super().__init__(coordinate)
         self.image = '🌲'
-    #     super().__init__(coordinate, name)
 
 
 

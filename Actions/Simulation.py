@@ -15,7 +15,7 @@ class Simulation():  # Главный класс. Включает Счётчи�
         while entityNumber != 0:
             random_key = random.choice(list(self.Map.map.keys()))
             if self.Map.map[random_key] == None:
-                self.Map.map[random_key] = Entity
+                self.Map.map[random_key] = Entity([random_key])
                 entityNumber -= 1
 
     def set_entities_to_map(self):
@@ -26,8 +26,8 @@ class Simulation():  # Главный класс. Включает Счётчи�
         for entity_number, Entity in zip([self.Config.grassNumber, self.Config.treeNumber,
                                           self.Config.rockNumber, self.Config.predatorNumber,
                                           self.Config.herbivoreNumber],
-                                         [grass.Grass(), tree.Tree(), rock.Rock(),
-                                          predador.Predator(), herbivore.Herbivore()]):
+                                         [grass.Grass, tree.Tree, rock.Rock,
+                                          predador.Predator, herbivore.Herbivore]):
             self.set_entity_to_map(entity_number, Entity)
             # for Entity in [grass.Grass(), tree.Tree(), rock.Rock(), predador.Predator(), herbivore.Herbivore()]:
             #     self.set_entity_to_map(entity_number, Entity)
