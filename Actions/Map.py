@@ -17,8 +17,7 @@ class Map:
             for x in range(self.width):
                 if self.map[(x, y)] is None:
                     print("..", end="  ")  # Пустая клетка
-                ### !!! Код ниже везде повторяется. Можно в классе сущности просивоить кажому свое изображение и выводить его
                 elif isinstance(self.map[(x, y)], Entity):
-                    print(self.map[(x, y)].image, end="  ")  # Клетка с травой
+                    print(self.map[(x, y)].image, end="  ")  # Клетка изображением сущности
             print()  # Переход на новую строку
 

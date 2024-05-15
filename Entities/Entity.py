@@ -5,8 +5,6 @@ class Entity(): # Сущность. Класс для всех существ и
         return 'The object Entity'
     def __init__(self, coordinate: list):
         self.coordinate = coordinate
-    #     self.name = name
-    #     self.image = image
 
     # def show_image(self): # Будет показывать изображение
     #     return image #

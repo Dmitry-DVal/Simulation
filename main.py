@@ -1,16 +1,1 @@
-# https://zhukovsd.github.io/python-backend-learning-course/Projects/Simulation/#herbivore
-from config import Config
-from Actions.map import Map
-from Actions.simulation import Simulation
-
-
-m = Map(Config.height, Config.width)
-s = Simulation(m, Config())
-s.set_entities_to_map()
-m.show_map()
-# s.show_map()
-
-
-
-
-
+# https://zhukovsd.github.io/python-backend-learning-course/Projects/Simulation/#herbivorefrom config import Configfrom Actions.map import Mapfrom Actions.simulation import Simulationm = Map(Config.height, Config.width)s = Simulation(m, Config())s.set_entities_to_map()m.show_map()
