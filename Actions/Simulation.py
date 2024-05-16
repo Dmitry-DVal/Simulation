@@ -1,5 +1,5 @@
 from config import *
-from Entities import grass, tree, rock, predador, herbivore, creature
+from Entities import grass, tree, rock, predador, herbivore
 import random
 from Actions import map
 
@@ -16,9 +16,9 @@ class Simulation():  # Главный класс. Включает Счётчи�
             random_key = random.choice(list(self.Map.map.keys()))
             if self.Map.map[random_key] == None:
                 if issubclass(Entity, predador.Predator):
-                    self.Map.map[random_key] = Entity([random_key], Config.predatorSpeed)
+                    self.Map.map[random_key] = Entity([random_key], Config.predatorSpeed, Config.predatorHp, Config.predatorDamage)
                 elif issubclass(Entity, herbivore.Herbivore):
-                    self.Map.map[random_key] = Entity([random_key], Config.herbivoreSpeed)
+                    self.Map.map[random_key] = Entity([random_key], Config.herbivoreSpeed, Config.herbivoreHp)
                 else:
                     self.Map.map[random_key] = Entity([random_key])
                 entityNumber -= 1

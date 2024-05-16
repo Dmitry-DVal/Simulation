@@ -15,6 +15,12 @@ class Config:
     predatorSpeed = 5 # Скорость хищников
     herbivoreSpeed = 3 # Скорость травоядных
 
+    predatorHp = 7 # Здоровье хищника
+    herbivoreHp = 7 # Здоровье травоядного
+
+    predatorDamage = 5 # Урон хищника
+
+
 
     # # Диапозон скоростей. Атак. Здоровья
     # attackRange = []
