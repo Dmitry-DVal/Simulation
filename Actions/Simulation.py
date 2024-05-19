@@ -1,10 +1,11 @@
 from config import *
 from Entities import grass, tree, rock, predador, herbivore
+from Actions import actions
 import random
 from Actions import map
 
 
-class Simulation():  # Главный класс. Включает Счётчик ходов Рендерер поля Action
+class Simulation(actions.Actions):  # Главный класс. Включает Счётчик ходов Рендерер поля Action
     "Главный класс приложения"
 
     def __init__(self, Map: 'Map', Config: 'Config'):
