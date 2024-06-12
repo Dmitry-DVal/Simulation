@@ -1,5 +1,4 @@
-from Actions import map, actions
-from config import Config
+from Actions.actions import Actions
 from Entities.entity import Entity
 
 class Simulation:
@@ -7,6 +6,7 @@ class Simulation:
         self.Config = Config
         self.Map = Map
         self.living_creatures = ()  # перечисление всех живых существ
+        self.actions = Actions(self)
 
     def show_map(self):
         "Рендер поля"

@@ -1,4 +1,4 @@
-from entity import Entity
+from Entities.entity import Entity
 
 
 class Creature(Entity):
@@ -8,7 +8,7 @@ class Creature(Entity):
     '''
 
     def __init__(self, coordinate, speed, hp):
-        super.__init__(coordinate)
+        super().__init__(coordinate)
         self.speed = speed
         self.hp = hp
 
