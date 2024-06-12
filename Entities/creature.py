@@ -1,7 +1,7 @@
-from Entities.entity import Entity
+from entity import Entity
 
 
-class Creature():
+class Creature(Entity):
     '''
     Класс для живых существ. У них появляется здоровье и скорость передвижения.
     №№№! Переделать в абстрактный класс
