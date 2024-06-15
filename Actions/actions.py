@@ -1,9 +1,6 @@
-#from config import *
 import random
-# from Actions.simulation import Simulation
 from config import Config
-# from Actions.simulation import Simulation
-from Entities import entity, creature, grass, herbivore, predator, rock, tree
+from Entities import grass, herbivore, predator, rock, tree
 
 
 class Actions:

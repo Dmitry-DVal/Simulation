@@ -1,4 +1,5 @@
 from Actions.actions import Actions
+from Actions.bfs import BFS
 from Entities.entity import Entity
 
 class Simulation:
@@ -7,6 +8,7 @@ class Simulation:
         self.Map = Map
         self.living_creatures = ()  # перечисление всех живых существ
         self.actions = Actions(self)
+        self.bfs = BFS(self)
 
     def show_map(self):
         "Рендер поля"
