@@ -33,3 +33,20 @@ class Actions:
                                              predator.Predator, herbivore.Herbivore]):
             self.set_entity_to_map(entity_number, Entity)
 
+    def make_move_all_creatures(self):
+        for creature in self.Simulation.living_creatures:
+            self.make_move(creature)
+
+
+
+    def make_move(self, creature):
+        print(f'Существо - {creature}')
+        print(f'Характеристики', creature.__dict__)
+        print('Координаты =', creature.coordinate)
+        init_coordinates = creature.coordinate
+        goal = grass.Grass if isinstance(creature, herbivore.Herbivore) else herbivore.Herbivore # Цель существа
+        print(f'Цель существа - {goal}')
+        print()
+        visited_peaks = [] # Посещенные вершины
+
+

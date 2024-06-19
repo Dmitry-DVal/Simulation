@@ -6,6 +6,6 @@ class Entity():
         '''
         :param coordinate: координаты объекта в виде кортежа
         '''
-
+        self.coordinate = coordinate
 
 
