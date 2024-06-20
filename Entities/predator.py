@@ -1,4 +1,5 @@
 from Entities.creature import Creature
+from Entities.herbivore import Herbivore
 
 class Predator(Creature):
     '''
@@ -8,4 +9,5 @@ class Predator(Creature):
     def __init__(self, coordinate, speed, hp, damage):
         super().__init__(coordinate, speed, hp)
         self.damage = damage
+        self.goal = Herbivore
         self.image = '🐺'

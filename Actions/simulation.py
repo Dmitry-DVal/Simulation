@@ -5,6 +5,7 @@ from Entities.entity import Entity
 class Simulation:
     def __init__(self, Config, Map):
         self.Config = Config
+        self.Map = Map.map
         self.Map = Map
         self.living_creatures = ()  # перечисление всех живых существ
         self.actions = Actions(self)

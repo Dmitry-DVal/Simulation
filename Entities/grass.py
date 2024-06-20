@@ -8,4 +8,5 @@ class Grass(Entity):
 
     def __init__(self, coordinate):
         super().__init__(coordinate)
+        self.goal = None
         self.image = '🌿'
