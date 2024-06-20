@@ -46,7 +46,9 @@ class Actions:
         init_coordinates = creature.coordinate
         goal = grass.Grass if isinstance(creature, herbivore.Herbivore) else herbivore.Herbivore # Цель существа
         print(f'Цель существа - {goal}')
+        print(f"Возможные ходы - {self.Simulation.bfs.get_neighbors(creature.coordinate[0], creature.coordinate[1])}")
+        self.Simulation.show_map()
         print()
-        visited_peaks = [] # Посещенные вершины
+
 
 
