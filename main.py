@@ -9,7 +9,7 @@ def main():
     s = Simulation(Config, Map(Config()))
     print("Проверяем, что создается пустое поле")
     s.show_map()
-    print('Установим сущест на поле, в случайном порядке')
+    print('Установим существ на поле, в случайном порядке')
     s.actions.set_entities_to_map()
     s.show_map()
     print(s.Map.map)

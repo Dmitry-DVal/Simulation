@@ -27,10 +27,10 @@ class Actions:
 
     def set_entities_to_map(self):
         for entity_number, Entity in zip([Config.grassNumber, Config.treeNumber,
-                                          Config.rockNumber, Config.predatorNumber,
-                                          Config.herbivoreNumber],
-                                         [grass.Grass, tree.Tree, rock.Rock,
-                                             predator.Predator, herbivore.Herbivore]):
+                                          Config.rockNumber, Config.herbivoreNumber, Config.predatorNumber,
+                                          ],
+                                         [grass.Grass, tree.Tree, rock.Rock, herbivore.Herbivore,
+                                             predator.Predator]):
             self.set_entity_to_map(entity_number, Entity)
 
     def make_move_all_creatures(self):
