@@ -1,4 +1,4 @@
-from Entities import grass, herbivore
+from Entities import grass, herbivore, predator
 
 # Текущие проблемы
 # Существа не перемещаются - решено
@@ -58,9 +58,17 @@ class BFS:
                     if self.Simulation.Map.map[path[-1]] is None: # проверка, что клетка пустая
                         possible_final_coordinate.add(path[-1])
                 if isinstance(self.Simulation.Map.map[(nx, ny)], goal): # Что если цель достигнута?
-                    if level + 1 <= creature.speed: # 1ый вариант, существо успевает дойти до цели
+                    if level + 1 <= creature.speed and isinstance(creature, herbivore.Herbivore): # 1ый вариант, существо успевает дойти до цели. Травоядное
                         print(f'Вы выиграли, вы нашли {goal}, количество ходов = {counter}, Глубина = {level + 1}')
-                        print(f'ЭТО КОНЕЧНЫЕ КООРДИНАТЫ {(nx, ny)}')
+                        print(f'ЭТО КОНЕЧНЫЕ КООРДИНАТЫ {(nx, ny)}, вы у нас Зайчик')
+                        self.Simulation.Map.map[first_peak], self.Simulation.Map.map[(nx, ny)] = None, creature
+                        creature.coordinate = (nx, ny)
+                        return path + [(nx, ny)]
+                    elif level + 1 <= creature.speed and isinstance(creature, predator.Predator): # 1.5 вариант, существо успевает дойти до цели. Хищник
+                        print(f'Вы выиграли, вы нашли {goal}, количество ходов = {counter}, Глубина = {level + 1}')
+                        print(f'ЭТО КОНЕЧНЫЕ КООРДИНАТЫ {(nx, ny)}, вы у нас волк')
+                        # Удалить из списка живых существ
+                        self.Simulation.living_creatures.remove(self.Simulation.Map.map[(nx, ny)])
                         self.Simulation.Map.map[first_peak], self.Simulation.Map.map[(nx, ny)] = None, creature
                         creature.coordinate = (nx, ny)
                         return path + [(nx, ny)]

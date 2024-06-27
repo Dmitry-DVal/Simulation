@@ -34,7 +34,8 @@ class Actions:
             self.set_entity_to_map(entity_number, Entity)
 
     def make_move_all_creatures(self):
-        for creature in self.Simulation.living_creatures:
+        living_creatures_copy = self. Simulation.living_creatures.copy()
+        for creature in living_creatures_copy:
             self.make_move(creature)
 
 

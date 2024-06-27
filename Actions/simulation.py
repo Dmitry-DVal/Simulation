@@ -7,7 +7,7 @@ class Simulation:
         self.Config = Config
         self.Map = Map.map
         self.Map = Map
-        self.living_creatures = ()  # перечисление всех живых существ
+        self.living_creatures = []  # перечисление всех живых существ
         self.actions = Actions(self)
         self.bfs = BFS(self)
 
