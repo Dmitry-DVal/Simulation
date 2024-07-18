@@ -10,3 +10,6 @@ class Grass(Entity):
         super().__init__(coordinate)
         self.goal = None
         self.image = '🌿'
+
+    def __str__(self):
+        return 'Травка'

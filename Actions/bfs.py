@@ -5,7 +5,7 @@ from Entities import grass, herbivore, predator
 # Существо не исчезает когда его сожрали - решено
 # Существо не движется в сторону цели, если оно не успевает дойти - решено
 # Сделать возможность ходить перыми зайцам - сделано
-# Хищник не наносит урон, а сразу жрет существо - исправлено 
+# Хищник не наносит урон, а сразу жрет существо - исправлено
 # Зайчик сожрав траву должен восстановить здоровье # Возможно решено, проверить
 
 class BFS:
@@ -61,7 +61,7 @@ class BFS:
                 if isinstance(self.Simulation.Map.map[(nx, ny)], goal): # Что если цель достигнута?
                     if level + 1 <= creature.speed and isinstance(creature, herbivore.Herbivore): # 1ый вариант, существо успевает дойти до цели. Травоядное
                         print(f'Вы выиграли, вы нашли {goal}, количество ходов = {counter}, Глубина = {level + 1}')
-                        print(f'ЭТО КОНЕЧНЫЕ КООРДИНАТЫ {(nx, ny)}, вы у нас Зайчик')
+                        print(f'ЭТО КОНЕЧНЫЕ КООРДИНАТЫ {(nx, ny)}, вы у нас {creature}')
                         creature.hp = self.Simulation.Config.herbivoreHp
                         self.Simulation.Map.map[first_peak], self.Simulation.Map.map[(nx, ny)] = None, creature
                         creature.coordinate = (nx, ny)
@@ -69,7 +69,7 @@ class BFS:
                     elif level + 1 <= creature.speed and isinstance(creature, predator.Predator): # 1.5 вариант, существо успевает дойти до цели. Хищник
                         print(f'Вы вы нашли {goal}, количество ходов = {counter}, Глубина = {level + 1}')
                         if creature.damage > self.Simulation.Map.map[(nx, ny)].hp: # Урон больше чем здоровье зайца
-                            print(f'ЭТО КОНЕЧНЫЕ КООРДИНАТЫ {(nx, ny)}, вы у нас волк')
+                            print(f'ЭТО КОНЕЧНЫЕ КООРДИНАТЫ {(nx, ny)}, вы у нас {creature}')
                             # Удалить из списка живых существ
                             self.Simulation.living_creatures.remove(self.Simulation.Map.map[(nx, ny)])
                             self.Simulation.Map.map[first_peak], self.Simulation.Map.map[(nx, ny)] = None, creature
@@ -78,32 +78,34 @@ class BFS:
                         else:
                             print(f'Заяц слишком живучий')
                             self.Simulation.Map.map[(nx, ny)].hp -= creature.damage
-                            self.Simulation.Map.map[first_peak], self.Simulation.Map.map[path[-1]] = None, creature
-                            creature.coordinate = path[-1]
+                            if len(path) > 0:
+                                self.Simulation.Map.map[first_peak], self.Simulation.Map.map[path[-1]] = None, creature
+                                creature.coordinate = path[-1]
                             return path
-
-                    else: # 2ой вариант, до цели еще далеко, существо не успевает дойти
-                        print(f'Вы не успели дойти до цели')
-                        print(f'А СЮДА МОЖЕТ ПОПАТЬ СУЩЕСТВО {possible_final_coordinate}')
-                        print(f'ЭТО КОНЕЧНЫЕ КООРДИНАТЫ ЦЕЛИ {(nx, ny)}')
-                        # Поиск ближайшей точки
-                        min_abs = float('inf')
-                        closest_point = None
-                        for i in possible_final_coordinate:
-                            distance = abs((i[0] - nx) ** 2 + (i[1] - ny) ** 2)
-                            if distance < min_abs:
-                                min_abs = distance
-                                closest_point = i
-                        if closest_point:
-                            self.Simulation.Map.map[first_peak], self.Simulation.Map.map[closest_point] = None, creature
-                            creature.coordinate = closest_point
-                            print(f'Существо Перемещается на {closest_point}')
-                            return path + [closest_point]
-                        else:
-                            return path
+                    else:  # 2ой вариант, до цели еще далеко, существо не успевает дойти
+                        return self.move_closer_to_goal(possible_final_coordinate, nx, ny, path, first_peak, creature)
                 else:
                     queue.append(((nx, ny), level + 1, path + [(nx, ny)]))
                     # print(f'Добавлено в очередь: {((nx, ny), level + 1, path + [(nx, ny)])}') # Отладочное сообщение
         print(f'Существо не нашло цель и осталось на месте {first_peak}')  # Отладочное сообщение
         return []
 
+    def move_closer_to_goal(self, possible_final_coordinate, nx, ny, path, first_peak, creature):  # 2-й вариант, до цели еще далеко, существо не успевает дойти
+        print(f'Вы не успели дойти до цели')
+        print(f'А СЮДА МОЖЕТ ПОПАТЬ СУЩЕСТВО {possible_final_coordinate}')
+        print(f'ЭТО КОНЕЧНЫЕ КООРДИНАТЫ ЦЕЛИ {(nx, ny)}')
+        # Поиск ближайшей точки
+        min_abs = float('inf')
+        closest_point = None
+        for i in possible_final_coordinate:
+            distance = abs((i[0] - nx) ** 2 + (i[1] - ny) ** 2)
+            if distance < min_abs:
+                min_abs = distance
+                closest_point = i
+        if closest_point:
+            self.Simulation.Map.map[first_peak], self.Simulation.Map.map[closest_point] = None, creature
+            creature.coordinate = closest_point
+            print(f'Существо Перемещается на {closest_point}')
+            return path + [closest_point]
+        else:
+            return path
