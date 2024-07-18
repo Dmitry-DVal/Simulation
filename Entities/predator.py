@@ -11,3 +11,6 @@ class Predator(Creature):
         self.damage = damage
         self.goal = Herbivore
         self.image = '🐺'
+
+    def __str__(self):
+        return 'Волк'

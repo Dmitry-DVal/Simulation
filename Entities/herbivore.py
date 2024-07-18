@@ -9,3 +9,5 @@ class Herbivore(Creature):
         self.goal = Grass
         self.image = '🐇'
 
+    def __str__(self):
+        return 'Заяц'

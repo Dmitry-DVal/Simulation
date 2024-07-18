@@ -41,7 +41,7 @@ class Actions:
 
 
     def make_move(self, creature):
-        print(f'Существо - {creature}')
+        print(f'Существо - {creature}, Здоровье - {creature.hp}, Скорость - {creature.speed}')
         #print(f'Характеристики', creature.__dict__)
         print('Координаты =', creature.coordinate)
         init_coordinates = creature.coordinate

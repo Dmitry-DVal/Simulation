@@ -2,10 +2,11 @@ from Entities import grass, herbivore, predator
 
 # Текущие проблемы
 # Существа не перемещаются - решено
-# Существо не исчезает когда его сожрали
+# Существо не исчезает когда его сожрали - решено
 # Существо не движется в сторону цели, если оно не успевает дойти - решено
-# Хищник не наносит урон, а сразу жрет существо
 # Сделать возможность ходить перыми зайцам - сделано
+# Хищник не наносит урон, а сразу жрет существо - исправлено 
+# Зайчик сожрав траву должен восстановить здоровье # Возможно решено, проверить
 
 class BFS:
     '''
@@ -61,17 +62,26 @@ class BFS:
                     if level + 1 <= creature.speed and isinstance(creature, herbivore.Herbivore): # 1ый вариант, существо успевает дойти до цели. Травоядное
                         print(f'Вы выиграли, вы нашли {goal}, количество ходов = {counter}, Глубина = {level + 1}')
                         print(f'ЭТО КОНЕЧНЫЕ КООРДИНАТЫ {(nx, ny)}, вы у нас Зайчик')
+                        creature.hp = self.Simulation.Config.herbivoreHp
                         self.Simulation.Map.map[first_peak], self.Simulation.Map.map[(nx, ny)] = None, creature
                         creature.coordinate = (nx, ny)
                         return path + [(nx, ny)]
                     elif level + 1 <= creature.speed and isinstance(creature, predator.Predator): # 1.5 вариант, существо успевает дойти до цели. Хищник
-                        print(f'Вы выиграли, вы нашли {goal}, количество ходов = {counter}, Глубина = {level + 1}')
-                        print(f'ЭТО КОНЕЧНЫЕ КООРДИНАТЫ {(nx, ny)}, вы у нас волк')
-                        # Удалить из списка живых существ
-                        self.Simulation.living_creatures.remove(self.Simulation.Map.map[(nx, ny)])
-                        self.Simulation.Map.map[first_peak], self.Simulation.Map.map[(nx, ny)] = None, creature
-                        creature.coordinate = (nx, ny)
-                        return path + [(nx, ny)]
+                        print(f'Вы вы нашли {goal}, количество ходов = {counter}, Глубина = {level + 1}')
+                        if creature.damage > self.Simulation.Map.map[(nx, ny)].hp: # Урон больше чем здоровье зайца
+                            print(f'ЭТО КОНЕЧНЫЕ КООРДИНАТЫ {(nx, ny)}, вы у нас волк')
+                            # Удалить из списка живых существ
+                            self.Simulation.living_creatures.remove(self.Simulation.Map.map[(nx, ny)])
+                            self.Simulation.Map.map[first_peak], self.Simulation.Map.map[(nx, ny)] = None, creature
+                            creature.coordinate = (nx, ny)
+                            return path + [(nx, ny)]
+                        else:
+                            print(f'Заяц слишком живучий')
+                            self.Simulation.Map.map[(nx, ny)].hp -= creature.damage
+                            self.Simulation.Map.map[first_peak], self.Simulation.Map.map[path[-1]] = None, creature
+                            creature.coordinate = path[-1]
+                            return path
+
                     else: # 2ой вариант, до цели еще далеко, существо не успевает дойти
                         print(f'Вы не успели дойти до цели')
                         print(f'А СЮДА МОЖЕТ ПОПАТЬ СУЩЕСТВО {possible_final_coordinate}')
