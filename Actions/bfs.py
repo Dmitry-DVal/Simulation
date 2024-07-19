@@ -19,18 +19,16 @@ class BFS:
                 (x + 1, y - 1), (x + 1, y), (x + 1, y + 1)]
         possible_peaks = []
         for peak in all_picks:
-            if self.is_in_range(peak, self.Simulation.Map.map):
-                continue
-            if self.is_it_free_cell(peak, self.Simulation.Map.map):
+            if self.is_in_range(peak) and self.is_it_free_cell(peak):
                 possible_peaks.append((peak[0], peak[1]))
         return possible_peaks
 
-    def is_in_range(self, peaks, my_map):
-        return (peaks[0], peaks[1]) not in my_map
+    def is_in_range(self, peaks):
+        return (peaks[0], peaks[1]) in self.Simulation.Map.map
 
-    def is_it_free_cell(self, peaks, my_map):
-        return my_map[(peaks[0], peaks[1])] is None or isinstance(my_map[peaks], (grass.Grass, herbivore.Herbivore))
-
+    def is_it_free_cell(self, peaks):
+        cell = self.Simulation.Map.map[(peaks[0], peaks[1])]
+        return cell is None or isinstance(cell,(grass.Grass, herbivore.Herbivore))
 
     def make_move(self, creature):
         first_peak = creature.coordinate # Начальные координаты
