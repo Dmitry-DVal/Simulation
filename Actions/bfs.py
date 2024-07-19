@@ -1,13 +1,5 @@
 from Entities import grass, herbivore, predator
 
-# Текущие проблемы
-# Существа не перемещаются - решено
-# Существо не исчезает когда его сожрали - решено
-# Существо не движется в сторону цели, если оно не успевает дойти - решено
-# Сделать возможность ходить перыми зайцам - сделано
-# Хищник не наносит урон, а сразу жрет существо - исправлено
-# Зайчик сожрав траву должен восстановить здоровье # Возможно решено, проверить
-
 class BFS:
     '''
     Класс для поиска в ширину
@@ -27,12 +19,17 @@ class BFS:
                 (x + 1, y - 1), (x + 1, y), (x + 1, y + 1)]
         possible_peaks = []
         for peak in all_picks:
-            if (peak[0], peak[1]) not in self.Simulation.Map.map: # Проверки, находится ли клетка в пределах карты.
+            if self.is_in_range(peak, self.Simulation.Map.map):
                 continue
-            if self.Simulation.Map.map[(peak[0], peak[1])] is None or isinstance(self.Simulation.Map.map[peak], (
-                grass.Grass, herbivore.Herbivore)): # Проверка, что клетка свободна
+            if self.is_it_free_cell(peak, self.Simulation.Map.map):
                 possible_peaks.append((peak[0], peak[1]))
         return possible_peaks
+
+    def is_in_range(self, peaks, my_map):
+        return (peaks[0], peaks[1]) not in my_map
+
+    def is_it_free_cell(self, peaks, my_map):
+        return my_map[(peaks[0], peaks[1])] is None or isinstance(my_map[peaks], (grass.Grass, herbivore.Herbivore))
 
 
     def make_move(self, creature):
