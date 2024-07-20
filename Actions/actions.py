@@ -35,14 +35,25 @@ class Actions:
 
     def make_move_all_creatures(self):
         living_creatures_copy = self. Simulation.living_creatures.copy()
+        print('-' * 20)
+        print(f'День {self.Simulation.day_counter}')
         for creature in living_creatures_copy:
-            self.make_move(creature)
+            self.is_predator_hungry(creature)
+            #self.make_move(creature)
+        self.Simulation.day_counter += 1
+
+
+    def is_predator_hungry(self, creature):
+        if isinstance(creature, predator.Predator) and creature.hp == Config.predatorHp:
+            print('Сытый волк - не охотник')
+            creature.hp -= 2
+        else:
+            return self.make_move(creature)
 
 
 
     def make_move(self, creature):
-        print(f'Существо - {creature}, Здоровье - {creature.hp}, Скорость - {creature.speed}')
-        print('Координаты =', creature.coordinate)
+        print(f'Существо - {creature}, Здоровье - {creature.hp}, Скорость - {creature.speed}, Координаты - {creature.coordinate}')
         self.Simulation.bfs.make_move(creature)
         self.Simulation.show_map()
         print()

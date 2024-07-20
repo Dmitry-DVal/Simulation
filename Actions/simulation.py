@@ -10,6 +10,7 @@ class Simulation:
         self.living_creatures = []
         self.actions = Actions(self)
         self.bfs = BFS(self)
+        self.day_counter = 1
 
     def show_map(self):
         "Рендер поля"

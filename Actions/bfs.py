@@ -71,10 +71,11 @@ class BFS:
         elif level + 1 <= creature.speed and isinstance(creature, predator.Predator):  # 1.5 вариант, существо успевает дойти до цели. Хищник
             print(f'{creature} нашел {creature.goal}, количество ходов = {counter}, Глубина = {level + 1}')
             if creature.damage > self.Simulation.Map.map[finish_peak].hp:  # Урон больше чем здоровье зайца
-                print(f'ЭТО КОНЕЧНЫЕ КООРДИНАТЫ {finish_peak}, вы у нас {creature}')
+                print(f'{creature} убивает Зайца и перемещается на {finish_peak}')
                 self.Simulation.living_creatures.remove(self.Simulation.Map.map[finish_peak]) # Удалить из списка живых существ
                 self.Simulation.Map.map[first_peak], self.Simulation.Map.map[finish_peak] = None, creature
                 creature.coordinate = finish_peak
+                creature.hp = self.Simulation.Config.predatorHp
                 return path + [finish_peak]
             else:
                 print(f'Волк бьет зайца, но Заяц слишком живучий')
