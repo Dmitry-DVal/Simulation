@@ -1,7 +1,7 @@
 from Actions.simulation import Simulation
 from Actions.map import Map
 from config import Config
-from Actions.actions import Actions
+
 
 
 def main():

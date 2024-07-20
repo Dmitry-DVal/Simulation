@@ -54,7 +54,7 @@ class Actions:
         else:
             return self.make_move(creature)
 
-    def damage_hp(self, creature, damage = 2):
+    def damage_hp(self, creature, damage = 1):
         creature.hp -= damage
     def add_grass(self, count_grass = 2):
         while count_grass != 0:
@@ -67,7 +67,7 @@ class Actions:
 
 
     def make_move(self, creature):
-        print(f'Существо - {creature}, Здоровье - {creature.hp}/7, Скорость - {creature.speed}, Координаты - {creature.coordinate}')
+        print(f'Существо - {creature}, Здоровье - {creature.hp}/9, Скорость - {creature.speed}, Координаты - {creature.coordinate}')
         self.Simulation.bfs.make_move(creature)
         self.Simulation.show_map()
         print()

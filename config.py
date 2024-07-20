@@ -18,8 +18,8 @@ class Config:
     herbivoreSpeed = 3
 
     # Здоровье существ
-    predatorHp = 7
-    herbivoreHp = 7
+    predatorHp = 9
+    herbivoreHp = 9
 
     # Урон хищника
     predatorDamage = 5
