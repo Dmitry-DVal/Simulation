@@ -7,7 +7,7 @@ class Simulation:
         self.Config = Config
         self.Map = Map.map
         self.Map = Map
-        self.living_creatures = []  # перечисление всех живых существ
+        self.living_creatures = []
         self.actions = Actions(self)
         self.bfs = BFS(self)
 
@@ -18,5 +18,5 @@ class Simulation:
                 if self.Map.map[(x, y)] is None:
                     print("..", end="  ")  # Пустая клетка
                 elif isinstance(self.Map.map[(x, y)], Entity):
-                    print(self.Map.map[(x, y)].image, end="  ")  # Клетка с изображением сущности
+                    print(self.Map.map[(x, y)].image, end="  ")
             print()  # Переход на новую строку
