@@ -14,7 +14,7 @@ class Actions:
     def set_entity_to_map(self, entityNumber, Entity):
         while entityNumber != 0:
             random_key = random.choice(list(self.Simulation.Map.map.keys()))
-            if self.Simulation.Map.map[random_key] == None: # Попробуй просто через мап, ане через симуляцию
+            if self.Simulation.Map.map[random_key] == None:
                 if issubclass(Entity, predator.Predator):
                     self.Simulation.Map.map[random_key] = Entity((random_key), Config.predatorSpeed, Config.predatorHp, Config.predatorDamage)
                     self.Simulation.living_creatures += (Entity((random_key), Config.predatorSpeed, Config.predatorHp, Config.predatorDamage),)
@@ -37,9 +37,10 @@ class Actions:
         living_creatures_copy = self. Simulation.living_creatures.copy()
         print('-' * 20)
         print(f'День {self.Simulation.day_counter}')
+        self.add_grass()
+        self.Simulation.show_map()
         for creature in living_creatures_copy:
             self.is_predator_hungry(creature)
-            #self.make_move(creature)
         self.Simulation.day_counter += 1
 
 
@@ -47,13 +48,26 @@ class Actions:
         if isinstance(creature, predator.Predator) and creature.hp == Config.predatorHp:
             print('Сытый волк - не охотник')
             creature.hp -= 2
+        elif isinstance(creature, predator.Predator):
+            self.damage_hp(creature)
+            return self.make_move(creature)
         else:
             return self.make_move(creature)
+
+    def damage_hp(self, creature, damage = 2):
+        creature.hp -= damage
+    def add_grass(self, count_grass = 2):
+        while count_grass != 0:
+            random_key = random.choice(list(self.Simulation.Map.map.keys()))
+            if self.Simulation.Map.map[random_key] == None:
+                self.Simulation.Map.map[random_key] = grass.Grass((random_key))
+            count_grass -= 1
+        print("Новый день, выросла новая Трава")
 
 
 
     def make_move(self, creature):
-        print(f'Существо - {creature}, Здоровье - {creature.hp}, Скорость - {creature.speed}, Координаты - {creature.coordinate}')
+        print(f'Существо - {creature}, Здоровье - {creature.hp}/7, Скорость - {creature.speed}, Координаты - {creature.coordinate}')
         self.Simulation.bfs.make_move(creature)
         self.Simulation.show_map()
         print()

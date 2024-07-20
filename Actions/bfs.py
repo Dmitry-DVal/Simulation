@@ -57,19 +57,19 @@ class BFS:
                         return self.move_closer_to_goal(possible_final_coordinate, nx, ny, path, first_peak, creature)
                 else:
                     queue.append(((nx, ny), level + 1, path + [(nx, ny)]))
-        print(f'Существо не нашло цель и осталось на месте {first_peak}')  # Отладочное сообщение
+        print(f'Существо не видит цель и остается на месте {first_peak}')  # Отладочное сообщение
         return []
 
     def update_position(self, creature, first_peak, finish_peak, level, counter, path):
         if level + 1 <= creature.speed and isinstance(creature, herbivore.Herbivore):  # 1ый вариант, существо успевает дойти до цели. Травоядное
-            print(f'{creature} нашел {creature.goal}, количество ходов = {counter}, Глубина = {level + 1}')
+            print(f'{creature} нашел Траву, Глубина = {level + 1}')
             print(f'{creature}, ваши конечные координаты {finish_peak}')
             creature.hp = self.Simulation.Config.herbivoreHp
             self.Simulation.Map.map[first_peak], self.Simulation.Map.map[finish_peak] = None, creature
             creature.coordinate = finish_peak
             return path + [finish_peak]
         elif level + 1 <= creature.speed and isinstance(creature, predator.Predator):  # 1.5 вариант, существо успевает дойти до цели. Хищник
-            print(f'{creature} нашел {creature.goal}, количество ходов = {counter}, Глубина = {level + 1}')
+            print(f'{creature} нашел Зайца, Глубина = {level + 1}')
             if creature.damage > self.Simulation.Map.map[finish_peak].hp:  # Урон больше чем здоровье зайца
                 print(f'{creature} убивает Зайца и перемещается на {finish_peak}')
                 self.Simulation.living_creatures.remove(self.Simulation.Map.map[finish_peak]) # Удалить из списка живых существ
@@ -78,7 +78,7 @@ class BFS:
                 creature.hp = self.Simulation.Config.predatorHp
                 return path + [finish_peak]
             else:
-                print(f'Волк бьет зайца, но Заяц слишком живучий')
+                print(f'Волк бьет Зайца, но Заяц слишком живучий')
                 self.Simulation.Map.map[finish_peak].hp -= creature.damage
                 if len(path) > 0:
                     self.Simulation.Map.map[first_peak], self.Simulation.Map.map[path[-1]] = None, creature

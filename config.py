@@ -8,7 +8,7 @@ class Config:
 
     # Кол-во существ
     predatorNumber = 2  # 5
-    herbivoreNumber = 2  # 6
+    herbivoreNumber = 3  # 6
     treeNumber = 12  # 7
     grassNumber = 3  # 10
     rockNumber = 12  # 7
