@@ -1,24 +1,21 @@
 from Entities.entity import Entity
+from abc import ABC, abstractmethod
 
 
-class Creature(Entity):
+class Creature(Entity, ABC):
     '''
     Класс для живых существ. У них появляется здоровье и скорость передвижения.
-    №№№! Переделать в абстрактный класс
     '''
 
-    def __init__(self, coordinate, speed, hp):
-        super().__init__(coordinate)
+    def __init__(self, coordinate: tuple, speed: int, hp: int, image: str, goal=None):
+        super().__init__(coordinate, image)
         self.speed = speed
         self.hp = hp
+        self.goal = goal
 
+    def __str__(self):
+        pass
 
-def main():
-    'описываются все действия, которые необходимо сделать'
-    print('Colled from creature.py')
-
-if __name__ == '__main__':
-    main()
-
-
-
+    @abstractmethod
+    def test_move(self):
+        pass
