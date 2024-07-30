@@ -17,12 +17,12 @@ class Creature(Entity, ABC):
         pass
 
     @abstractmethod
-    def test_move(self):
+    def make_move(self):
         pass
 
     def move_closer_to_goal(self, possible_final_coordinate: tuple, nx: int, ny: int, path: list[tuple, int, list],
                             first_peak: tuple[int, int],
-                            creature, my_map) -> list[tuple, int, list]:  # 2-й вариант, до цели еще далеко, существо не успевает дойти
+                            creature, my_map: dict) -> list[tuple, int, list]:  # 2-й вариант, до цели еще далеко, существо не успевает дойти
         """Существо не успевает дойти до цели, оно перемещается по направлении к цели."""
         print(f'{(nx, ny)} - Конечные координаты цели, {creature} не успевает дойти.')
         # Поиск ближайшей точки
