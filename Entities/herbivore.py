@@ -12,10 +12,10 @@ class Herbivore(Creature):
         return 'Заяц'
 
     def make_move(self, creature: 'Creature', first_peak: tuple[int, int], finish_peak: tuple[int, int],
-                  level: int, counter, path: list[tuple, int, list], my_map, living_creatures, herbivoreHp,
-                  predatorHp) -> list[
-        tuple, int, list]:
-        """"""
+                  level: int, counter, path: list[tuple, int, list], my_map: dict, living_creatures: list,
+                  herbivoreHp: int,
+                  predatorHp: int) -> list[tuple, int, list]:
+        """Существо перемещается до цели."""
         print(f'{creature} нашел Траву, Глубина = {level + 1}')
         print(f'{creature}, ваши конечные координаты {finish_peak}')
         creature.hp = herbivoreHp

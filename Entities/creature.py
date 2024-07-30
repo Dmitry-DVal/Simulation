@@ -10,8 +10,19 @@ class Creature(Entity, ABC):
     def __init__(self, coordinate: tuple[int, int], speed: int, hp: int, image: str, goal=None):
         super().__init__(coordinate, image)
         self.speed = speed
-        self.hp = hp
         self.goal = goal
+        self.__hp = hp
+
+    @property
+    def hp(self) -> int:
+        return self.__hp
+
+    @hp.setter
+    def hp(self, value: int) -> None:
+        if value < 0:
+            self.__hp = 0
+        else:
+            self.__hp = value
 
     def __str__(self):
         pass
@@ -40,3 +51,4 @@ class Creature(Entity, ABC):
             return path + [closest_point]
         else:
             return path
+
