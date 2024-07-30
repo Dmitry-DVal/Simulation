@@ -6,7 +6,7 @@ class Entity(ABC):
     Класс для всех существ и объект, существующих в симуляции, все объекты получают координаты расположения на карте.
     '''
 
-    def __init__(self, coordinate: tuple, image: str):
+    def __init__(self, coordinate: tuple[int, int], image: str):
         self.coordinate = coordinate
         self.image = image
 

@@ -7,7 +7,7 @@ class Creature(Entity, ABC):
     Класс для живых существ. У них появляется здоровье и скорость передвижения.
     '''
 
-    def __init__(self, coordinate: tuple, speed: int, hp: int, image: str, goal=None):
+    def __init__(self, coordinate: tuple[int, int], speed: int, hp: int, image: str, goal=None):
         super().__init__(coordinate, image)
         self.speed = speed
         self.hp = hp

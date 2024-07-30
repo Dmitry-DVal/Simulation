@@ -5,13 +5,13 @@ from Entities import grass, herbivore, predator
 # Добавить описание к методам
 class BFS:
     '''
-    Класс для поиска в ширину
+    Класс поиска в ширину.
     '''
-    def __init__(self, Simulation):
+    def __init__(self, Simulation: 'Simulation'):
         self.Simulation = Simulation
 
 
-    def get_neighbors(self, coordinates):
+    def get_neighbors(self, coordinates: tuple[int, int]) -> list:
         '''
         Функция, для создания списка соседних клеток, на которые может наступить существо.
         :return: Список клеток, на которые можно сходить
@@ -26,14 +26,21 @@ class BFS:
                 possible_peaks.append((peak[0], peak[1]))
         return possible_peaks
 
-    def is_in_range(self, peaks):
+    def is_in_range(self, peaks: tuple[int, int]) -> bool:
+        '''Проверяет входят ли точки в границы карты.'''
         return (peaks[0], peaks[1]) in self.Simulation.Map.map
 
-    def is_it_free_cell(self, peaks):
+    def is_it_free_cell(self, peaks: tuple[int, int]) -> bool:
+        """Проверяет свободная ли клетка."""
         cell = self.Simulation.Map.map[(peaks[0], peaks[1])]
         return cell is None or isinstance(cell,(grass.Grass, herbivore.Herbivore))
 
-    def make_move(self, creature):
+    def make_move(self, creature: 'Creature'):
+        """Ищет близжайщий маршрут до существа,
+        обновляет его позицию,
+        передвигает в сторону цели в случае если существо не успело дойти,
+        проверяет хищник это или травоядное,
+        бьет существо если хищник"""
         first_peak = creature.coordinate # Начальные координаты
         visited_peak = set()  # Посещенные вершины
         queue = [(first_peak, 0, [])]  # Очередь, должна хранить координаты, глубину поиска и путь
@@ -55,23 +62,26 @@ class BFS:
                         possible_final_coordinate.add(path[-1])
                 if isinstance(self.Simulation.Map.map[(nx, ny)], creature.goal): # Что если цель достигнута?
                     if level + 1 <= creature.speed: # 1ый вариант, существо успевает дойти до цели. Травоядное
-                       return self.update_position(creature, first_peak, (nx, ny), level, counter, path)
+                       return self.update_position(creature, first_peak, (nx, ny), level, counter, path) # self.Simulation.actions.update_position(creature, first_peak, (nx, ny), level, counter, path)
                     else:  # 2ой вариант, до цели еще далеко, существо не успевает дойти
-                        return self.move_closer_to_goal(possible_final_coordinate, nx, ny, path, first_peak, creature)
+                        return self.move_closer_to_goal(possible_final_coordinate, nx, ny, path, first_peak, creature) # self.Simulation.actions.move_closer_to_goal(possible_final_coordinate, nx, ny, path, first_peak, creature)
                 else:
                     queue.append(((nx, ny), level + 1, path + [(nx, ny)]))
         print(f'Существо не видит цель и остается на месте {first_peak}')  # Отладочное сообщение
         return []
 
-    def update_position(self, creature, first_peak, finish_peak, level, counter, path): # Этот метод убрать из БФС класс,
-        if level + 1 <= creature.speed and isinstance(creature, herbivore.Herbivore):  # 1ый вариант, существо успевает дойти до цели. Травоядное
+    def update_position(self, creature: 'Creature', first_peak: tuple[int, int], finish_peak: tuple[int, int], level: int, counter, path: list[tuple, int, list]) -> list[tuple, int, list]: # Этот метод убрать из БФС класс,
+        """Перемещает существо на новую позицию, когда существо успевает дойти до цели"""
+        # 1ый вариант, существо успевает дойти до цели. Травоядное
+        if level + 1 <= creature.speed and isinstance(creature, herbivore.Herbivore):
             print(f'{creature} нашел Траву, Глубина = {level + 1}')
             print(f'{creature}, ваши конечные координаты {finish_peak}')
             creature.hp = self.Simulation.Config.herbivoreHp
             self.Simulation.Map.map[first_peak], self.Simulation.Map.map[finish_peak] = None, creature
             creature.coordinate = finish_peak
             return path + [finish_peak]
-        elif level + 1 <= creature.speed and isinstance(creature, predator.Predator):  # 1.5 вариант, существо успевает дойти до цели. Хищник
+        # 1.5 вариант, существо успевает дойти до цели. Хищник
+        elif level + 1 <= creature.speed and isinstance(creature, predator.Predator):
             print(f'{creature} нашел Зайца, Глубина = {level + 1}')
             if creature.damage > self.Simulation.Map.map[finish_peak].hp:  # Урон больше чем здоровье зайца
                 print(f'{creature} убивает Зайца и перемещается на {finish_peak}')
@@ -87,7 +97,10 @@ class BFS:
                     self.Simulation.Map.map[first_peak], self.Simulation.Map.map[path[-1]] = None, creature
                     creature.coordinate = path[-1]
                 return path
-    def move_closer_to_goal(self, possible_final_coordinate, nx, ny, path, first_peak, creature):  # 2-й вариант, до цели еще далеко, существо не успевает дойти
+
+    def move_closer_to_goal(self, possible_final_coordinate, nx, ny, path, first_peak,
+                            creature):  # 2-й вариант, до цели еще далеко, существо не успевает дойти
+        """Существо не успевает дойти до цели, оно перемещается по направлении к цели."""
         print(f'{(nx, ny)} - Конечные координаты цели, {creature} не успевает дойти.')
         # Поиск ближайшей точки
         min_abs = float('inf')
