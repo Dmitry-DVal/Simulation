@@ -8,8 +8,8 @@ class Simulation:
 
     def __init__(self, Config: 'Config', Map: 'Map') -> None:
         """Инициализирует игру, создает игровые ресурсы"""
-        self.Config = Config
-        self.Map = Map
+        self.Config = Config() # Почему с большой буквы?
+        self.Map = Map # Почему с большой буквы?
         self.actions = Actions(self)
         self.bfs = BFS(self)
         self.living_creatures = []
