@@ -1,4 +1,4 @@
-from config import Config
+
 
 class Map:
     def __init__(self, Config):

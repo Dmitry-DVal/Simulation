@@ -2,18 +2,21 @@ from Actions.actions import Actions
 from Actions.bfs import BFS
 from Entities.entity import Entity
 
+
 class Simulation:
-    def __init__(self, Config, Map):
+    """Должен включать в себя карту, счетчик ходов, рендер поля, actions"""
+
+    def __init__(self, Config: 'Config', Map: 'Map') -> None:
+        """Инициализирует игру, создает игровые ресурсы"""
         self.Config = Config
-        self.Map = Map.map
         self.Map = Map
-        self.living_creatures = []
         self.actions = Actions(self)
         self.bfs = BFS(self)
+        self.living_creatures = []
         self.day_counter = 1
 
-    def show_map(self):
-        "Рендер поля"
+    def show_map(self) -> None:
+        "Выводит в консоль изображение карты."
         for y in range(self.Config.height):
             for x in range(self.Config.width):
                 if self.Map.map[(x, y)] is None:

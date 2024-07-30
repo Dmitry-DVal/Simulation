@@ -2,7 +2,7 @@ import random
 from config import Config
 from Entities import grass, herbivore, predator, rock, tree
 
-
+# Часть функций сделать защищеными, котоыре используются только внутри класса а не ЭК
 class Actions:
     '''
     Класс, управляющий действиями совершаемыми над игровым миром
@@ -12,9 +12,10 @@ class Actions:
         self.Simulation = Simulation
 
     def set_entity_to_map(self, entityNumber, Entity):
+        """Устанавливает сущесто на боле в случайном месте"""
         while entityNumber != 0:
             random_key = random.choice(list(self.Simulation.Map.map.keys()))
-            if self.Simulation.Map.map[random_key] == None:
+            if self.Simulation.Map.map[random_key] == None: # Можно добавить несколько функций для каждого блока
                 if issubclass(Entity, predator.Predator):
                     self.Simulation.Map.map[random_key] = Entity((random_key), Config.predatorSpeed, Config.predatorHp, Config.predatorDamage)
                     self.Simulation.living_creatures += (Entity((random_key), Config.predatorSpeed, Config.predatorHp, Config.predatorDamage),)
@@ -44,7 +45,7 @@ class Actions:
         self.Simulation.day_counter += 1
 
 
-    def is_predator_hungry(self, creature):
+    def is_predator_hungry(self, creature): # Так же каждый блок если - отдельная функция
         if isinstance(creature, predator.Predator) and creature.hp == Config.predatorHp:
             print('Сытый волк - не охотник')
             creature.hp -= 2

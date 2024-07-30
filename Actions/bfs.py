@@ -1,5 +1,8 @@
 from Entities import grass, herbivore, predator
 
+
+# Класс перегружен, оставить в нем только поиск близжайщей цели
+# Добавить описание к методам
 class BFS:
     '''
     Класс для поиска в ширину
@@ -60,7 +63,7 @@ class BFS:
         print(f'Существо не видит цель и остается на месте {first_peak}')  # Отладочное сообщение
         return []
 
-    def update_position(self, creature, first_peak, finish_peak, level, counter, path):
+    def update_position(self, creature, first_peak, finish_peak, level, counter, path): # Этот метод убрать из БФС класс,
         if level + 1 <= creature.speed and isinstance(creature, herbivore.Herbivore):  # 1ый вариант, существо успевает дойти до цели. Травоядное
             print(f'{creature} нашел Траву, Глубина = {level + 1}')
             print(f'{creature}, ваши конечные координаты {finish_peak}')
