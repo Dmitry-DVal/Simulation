@@ -2,6 +2,7 @@ class Config:
     '''
     Класс с настройками симуляции
     '''
+
     def __init__(self, width=15, height=8, predatorNumber=2, herbivoreNumber=3,
                  treeNumber=12, grassNumber=3, rockNumber=12,
                  predatorSpeed=5, herbivoreSpeed=3,
@@ -29,4 +30,3 @@ class Config:
 
         # Урон хищника
         self.predatorDamage = predatorDamage
-

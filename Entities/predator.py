@@ -4,7 +4,7 @@ from Entities.herbivore import Herbivore
 
 class Predator(Creature):
     '''
-    Класс хищников. Появляется сила атака. Задача поймать травоядного
+    Класс хищников. Появляется сила атака. Задача поймать и убить травоядное.
     '''
 
     def __init__(self, coordinate: tuple[int, int], speed: int, hp: int, damage: int, image: str = '🐺'):
@@ -21,13 +21,13 @@ class Predator(Creature):
             self.__hp = 0
         else:
             self.__hp = value
+
     def __str__(self):
         return 'Волк'
 
     def make_move(self, creature: 'Creature', first_peak: tuple[int, int], finish_peak: tuple[int, int],
-                  level: int, counter, path: list[tuple, int, list], my_map: dict, living_creatures: list,
-                  herbivoreHp: int,
-                  predatorHp: int) -> list[tuple, int, list]:
+                  level: int, counter: int, path: list[tuple[int, int]], my_map: dict, living_creatures: list,
+                  herbivoreHp: int, predatorHp) -> list[tuple[int, int]]:
         """Существо перемещается до цели."""
         print(f'{creature} нашел Зайца, Глубина = {level + 1}')
         if creature.damage > my_map[finish_peak].hp:  # Урон больше чем здоровье зайца
